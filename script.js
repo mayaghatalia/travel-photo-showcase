@@ -1,3 +1,4 @@
+// Initialize the Map
 var map = L.map('map', {
   worldCopyJump: false,
   maxBounds: [[-90, -180], [90, 180]],
@@ -6,13 +7,14 @@ var map = L.map('map', {
   maxZoom: 5
 }).setView([20, 0], 2);
 
+// Add Dark Tiles
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; OpenStreetMap contributors',
   subdomains: 'abcd',
   maxZoom: 19
 }).addTo(map);
 
-// GeoJSON countries loading
+// Load Countries
 fetch('countries.geojson')
   .then(response => response.json())
   .then(data => {
@@ -33,6 +35,7 @@ fetch('countries.geojson')
     }).addTo(map);
   });
 
+// Hover Highlight
 function highlightCountry(e) {
   var layer = e.target;
   layer.setStyle({
@@ -47,6 +50,7 @@ function highlightCountry(e) {
   }
 }
 
+// Reset Highlight
 function resetHighlight(e) {
   var layer = e.target;
   layer.setStyle({
@@ -58,6 +62,7 @@ function resetHighlight(e) {
   });
 }
 
+// Redirect on Click
 function onCountryClick(e) {
   const countryName = e.target.feature.properties.name;
   
@@ -69,6 +74,7 @@ function onCountryClick(e) {
     "India": "india.html",
     "Australia": "australia.html",
     "Spain": "spain.html",
+    // Add more countries here
   };
 
   if (countryPages[countryName]) {
