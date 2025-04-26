@@ -2,26 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <h1 class="main-title">Photos from Around the World</h1>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photos from Around the World</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Travel Photo Showcase</h1>
-  <div id="map" style="height: 500px;"></div>
 
-  <h2>Photo Gallery</h2>
-  <div id="gallery" class="gallery"></div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#map">Map</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- Landing Section with Canvas and Animated Title -->
+  <section class="landing">
+    <canvas id="bg-canvas"></canvas>
+    <div class="landing-content">
+      <h1 class="main-title">
+        <span>Photos</span> <span>from</span> <span>Around</span> <span>the</span> <span>World</span>
+      </h1>
+      <div class="line"></div>
+      <p class="subtitle">A Visual Journey Across Continents</p>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section id="map-section">
+    <h2>Map of Travels</h2>
+    <div id="map"></div>
+  </section>
+
+  <hr />
+
+  <!-- Gallery Section -->
+  <section id="gallery-section">
+    <h2>Photo Gallery</h2>
+    <div id="gallery" class="gallery"></div>
+  </section>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
+  <script src="dots.js"></script> <!-- Floating Dots Animation -->
 </body>
-
-<nav class="navbar">
-  <ul>
-    <li><a href="#map">Map</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-  </ul>
-</nav>
-
 </html>
