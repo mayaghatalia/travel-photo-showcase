@@ -1,15 +1,19 @@
-// Initialize the Map
-var map = L.map('map').setView([20, 0], 2); // [latitude, longitude], zoom level
+var map = L.map('map', {
+  worldCopyJump: false,
+  maxBounds: [[-90, -180], [90, 180]],
+  maxBoundsViscosity: 0.8,
+  minZoom: 2,
+  maxZoom: 5
+}).setView([20, 0], 2);
 
-// Add a dark basemap
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; OpenStreetMap contributors',
   subdomains: 'abcd',
   maxZoom: 19
 }).addTo(map);
 
-// Load GeoJSON data for countries
-fetch('countries.geojson') // your GeoJSON file with country shapes
+// GeoJSON countries loading
+fetch('countries.geojson')
   .then(response => response.json())
   .then(data => {
     L.geoJson(data, {
@@ -21,7 +25,7 @@ fetch('countries.geojson') // your GeoJSON file with country shapes
       }),
       onEachFeature: function (feature, layer) {
         layer.on({
-          click: onCountryClick, // ADD THIS
+          click: onCountryClick,
           mouseover: highlightCountry,
           mouseout: resetHighlight
         });
@@ -29,28 +33,31 @@ fetch('countries.geojson') // your GeoJSON file with country shapes
     }).addTo(map);
   });
 
-// Highlight on hover
 function highlightCountry(e) {
   var layer = e.target;
   layer.setStyle({
-    weight: 2,
+    weight: 3,
     color: '#ff69b4',
-    fillOpacity: 0.7
+    fillOpacity: 0.7,
+    dashArray: '5,5'
   });
+
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+    layer.bringToFront();
+  }
 }
 
-// Reset highlight on mouseout
 function resetHighlight(e) {
   var layer = e.target;
   layer.setStyle({
     fillColor: 'palevioletred',
     fillOpacity: 0.5,
     color: 'palevioletred',
-    weight: 1
+    weight: 1,
+    dashArray: ''
   });
 }
 
-// Handle country click and redirect
 function onCountryClick(e) {
   const countryName = e.target.feature.properties.name;
   
@@ -62,7 +69,6 @@ function onCountryClick(e) {
     "India": "india.html",
     "Australia": "australia.html",
     "Spain": "spain.html",
-    // Add more countries as you build pages
   };
 
   if (countryPages[countryName]) {
