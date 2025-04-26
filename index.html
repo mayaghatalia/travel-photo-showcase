@@ -6,9 +6,12 @@
   <title>Photos from Around the World</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Lora&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- Loader -->
+  <div id="loader"></div>
 
   <!-- Navbar -->
   <nav class="navbar">
@@ -47,5 +50,13 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
   <script src="dots.js"></script>
+
+  <!-- Loader fade-out script -->
+  <script>
+    window.addEventListener("load", function() {
+      document.getElementById("loader").style.display = "none";
+    });
+  </script>
+
 </body>
 </html>
