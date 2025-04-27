@@ -11,7 +11,9 @@
 <body>
 
   <!-- Loader -->
-  <div id="loader"></div>
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
 
   <!-- Navbar -->
   <nav class="navbar">
@@ -21,7 +23,7 @@
     </ul>
   </nav>
 
-  <!-- Landing Section with Canvas -->
+  <!-- Landing Section -->
   <section class="landing">
     <canvas id="bg-canvas"></canvas>
     <div class="landing-content">
@@ -51,10 +53,14 @@
   <script src="script.js"></script>
   <script src="dots.js"></script>
 
-  <!-- Loader fade-out script -->
   <script>
+    // Properly hide loader when page finishes loading
     window.addEventListener("load", function() {
-      document.getElementById("loader").style.display = "none";
+      const loader = document.getElementById("loader");
+      loader.style.opacity = "0";
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 500); // Wait for fade-out
     });
   </script>
 
