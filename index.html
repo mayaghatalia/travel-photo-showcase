@@ -6,14 +6,9 @@
   <title>Photos from Around the World</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@700&family=Lora&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- Loader -->
-  <div id="loader">
-    <div class="spinner"></div>
-  </div>
 
   <!-- Navbar -->
   <nav class="navbar">
@@ -25,12 +20,8 @@
 
   <!-- Landing Section -->
   <section class="landing">
-    <canvas id="bg-canvas"></canvas>
     <div class="landing-content">
-      <h1 class="main-title">
-        <span>Photos</span> <span>from</span> <span>Around</span> <span>the</span> <span>World</span>
-      </h1>
-      <div class="line"></div>
+      <h1 class="hero-title">PHOTOS FROM AROUND THE WORLD</h1>
       <p class="subtitle">A Visual Journey Across Continents</p>
     </div>
   </section>
@@ -52,17 +43,6 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
   <script src="dots.js"></script>
-
-  <script>
-    // Properly hide loader when page finishes loading
-    window.addEventListener("load", function() {
-      const loader = document.getElementById("loader");
-      loader.style.opacity = "0";
-      setTimeout(() => {
-        loader.style.display = "none";
-      }, 500); // Wait for fade-out
-    });
-  </script>
 
 </body>
 </html>

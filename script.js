@@ -14,22 +14,22 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
   maxZoom: 19
 }).addTo(map);
 
-// Load Countries
+// Load Countries GeoJSON
 fetch('countries.geojson')
   .then(response => response.json())
   .then(data => {
     L.geoJson(data, {
       style: feature => ({
-        fillColor: 'palevioletred',
+        fillColor: 'palevioletred', // Default light pink
         fillOpacity: 0.5,
         color: 'palevioletred',
-        weight: 1,
+        weight: 1
       }),
       onEachFeature: function (feature, layer) {
         layer.on({
-          click: onCountryClick,
           mouseover: highlightCountry,
-          mouseout: resetHighlight
+          mouseout: resetHighlight,
+          click: onCountryClick
         });
       }
     }).addTo(map);
@@ -40,7 +40,8 @@ function highlightCountry(e) {
   var layer = e.target;
   layer.setStyle({
     weight: 3,
-    color: '#ff69b4',
+    color: '#00BFFF',           // Deep Sky Blue on hover
+    fillColor: '#00BFFF',
     fillOpacity: 0.7,
     dashArray: '5,5'
   });
@@ -62,10 +63,10 @@ function resetHighlight(e) {
   });
 }
 
-// Redirect on Click
+// Redirect to Country Pages
 function onCountryClick(e) {
   const countryName = e.target.feature.properties.name;
-  
+
   const countryPages = {
     "United States of America": "usa.html",
     "Italy": "italy.html",
@@ -74,7 +75,7 @@ function onCountryClick(e) {
     "India": "india.html",
     "Australia": "australia.html",
     "Spain": "spain.html",
-    // Add more countries here
+    // Add more countries as needed
   };
 
   if (countryPages[countryName]) {
