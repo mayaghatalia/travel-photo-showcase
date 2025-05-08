@@ -98,21 +98,20 @@
   </style>
 </head>
 <body>
-
-  
+  <div class="top-bar">
+    <button onclick="location.href='../map.html'" class="back-button">← Back to Map</button>
+  </div>
   <h1 class="gallery-title">Photos from Paris</h1>
-
   <div class="gallery-container">
     <button class="nav-button" onclick="previousImage()" aria-label="Previous photo">&#8592;</button>
     <div class="image-wrapper">
       <div id="spinner" class="spinner"></div>
-      <img id="gallery-image" src="../images/france/p1.jpg" alt="Paris Photo" onload="hideSpinner()">
+      <img id="gallery-image" src="" alt="Paris Photo" onload="hideSpinner()">
     </div>
     <button class="nav-button" onclick="nextImage()" aria-label="Next photo">&#8594;</button>
   </div>
-
   <script>
-    // Use the correct relative path from france.html to images/france/p1.jpg
+    // Build image array for p1.jpg to p35.jpg
     const images = [];
     for (let i = 1; i <= 35; i++) {
       images.push(`../images/france/p${i}.jpg`);
@@ -159,6 +158,5 @@
     // Initialize gallery
     showImage(0);
   </script>
-
 </body>
 </html>
