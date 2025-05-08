@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photos from Kenya</title>
+  <style>
+    /* Enhanced Gallery Styles */
+    body {
+      background-color: #111;
+      color: #f0f0f0;
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-bar {
+      background: rgba(0,0,0,0.8);
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-button {
+      background: #77dd77;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .back-button:hover {
+      background: #9eff9e;
+    }
+
+    .gallery-title {
+      text-align: center;
+      margin: 20px 0;
+      color: #77dd77;
+    }
+
+    .gallery-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .image-wrapper {
+      position: relative;
+      width: 80%;
+      max-height: 70vh;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    #gallery-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.5s ease;
+      object-fit: contain;
+      max-height: 70vh;
+    }
+
+    .nav-button {
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .nav-button:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    .spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 4px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top: 4px solid #77dd77;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Keyboard navigation indicator */
+    .nav-button:focus {
+      outline: 2px solid #9eff9e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <button onclick="location.href='map.html'" class="back-button">← Back to Map</button>
+  </div>
+
+  <h1 class="gallery-title">Photos from Kenya</h1>
+
+  <div class="gallery-container">
+    <button class="nav-button" onclick="previousImage()" aria-label="Previous photo">&#8592;</button>
+    
+    <div class="image-wrapper">
+      <div id="spinner" class="spinner"></div>
+      <img id="gallery-image" src="images/kenya/k1.jpg" alt="Kenya Photo" onload="hideSpinner()">
+    </div>
+
+    <button class="nav-button" onclick="nextImage()" aria-label="Next photo">&#8594;</button>
+  </div>
+
+  <script>
+    const images = [
+      "images/kenya/k1.jpg",
+      "images/kenya/k2.jpg",
+      "images/kenya/k3.jpg",
+      "images/kenya/k4.jpg",
+      "images/kenya/k5.jpg",
+      "images/kenya/k6.jpg",
+      "images/kenya/k7.jpg",
+      "images/kenya/k8.jpg",
+      "images/kenya/k9.jpg",
+      "images/kenya/k10.jpg",
+      "images/kenya/k11.jpg",
+      "images/kenya/k12.jpg",
+      "images/kenya/k13.jpg",
+      "images/kenya/k14.jpg",
+      "images/kenya/k15.jpg",
+      "images/kenya/k16.jpg",
+      "images/kenya/k17.jpg",
+      "images/kenya/k18.jpg",
+      "images/kenya/k19.jpg",
+      "images/kenya/k20.jpg"
+    ];
+
+    let currentImageIndex = 0;
+    let imageLoaded = false;
+
+    function showImage(index) {
+      const img = document.getElementById('gallery-image');
+      const spinner = document.getElementById('spinner');
+
+      imageLoaded = false;
+      spinner.style.display = 'block';
+      img.style.opacity = 0;
+      
+      // Preload image for smoother transitions
+      const preload = new Image();
+      preload.src = images[index];
+      preload.onload = () => {
+        img.src = images[index];
+        img.alt = `Kenya Photo ${index + 1}`;
+      };
+    }
+
+    function hideSpinner() {
+      const img = document.getElementById('gallery-image');
+      const spinner = document.getElementById('spinner');
+      
+      spinner.style.display = 'none';
+      img.style.opacity = 1;
+      imageLoaded = true;
+    }
+
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      showImage(currentImageIndex);
+    }
+
+    function previousImage() {
+      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+      showImage(currentImageIndex);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') previousImage();
+    });
+
+    // Initial load
+    showImage(0);
+  </script>
+
+</body>
+</html>
