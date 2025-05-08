@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Instruction Modal -->
+    <div id="instruction-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-box">
+            <button class="close-btn" id="modal-close">✕</button>
+            <h2>Welcome!</h2>
+            <p>
+                Click on the glowing green countries to view photo galleries.<br>
+                Hover to see which places have been visited.<br>
+                Use the back button on each gallery page to return here.
+            </p>
+        </div>
+    </div>
+
+    <div id="map" tabindex="0"></div>
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="countriesData.js"></script>
+    <script src="map.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            const modal = document.getElementById('instruction-modal');
+            const closeBtn = document.getElementById('modal-close');
+            modal.style.display = 'flex';
+            closeBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+            // Optional: Close modal with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === "Escape" && modal.style.display !== 'none') {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
