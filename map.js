@@ -51,11 +51,14 @@ function onEachCountry(feature, layer) {
   const isGlowing = glowingCountries.has(name);
   const isVisited = visitedCountries[name];
 
-  // Add glow class and accessibility attributes
   function addGlowClass() {
     const path = layer.getElement ? layer.getElement() : layer._path;
     if (isGlowing && path) {
-      path.classList.add('glow-country');
+      if (isVisited) {
+        path.classList.add('glow-country-green');
+      } else {
+        path.classList.add('glow-country-white');
+      }
       path.setAttribute('tabindex', '0');
       path.setAttribute('aria-label', name);
     }
@@ -63,7 +66,7 @@ function onEachCountry(feature, layer) {
   addGlowClass();
   layer.on('add', addGlowClass);
 
-  // Visited countries: interactions and tooltip
+  // Add interactivity for visited countries
   if (isVisited) {
     layer.on('click', () => window.location.href = visitedCountries[name]);
     layer.on('keypress', function (e) {
@@ -79,6 +82,7 @@ function onEachCountry(feature, layer) {
     });
   }
 }
+
 
 // Load and add GeoJSON country shapes
 fetch('countries.geojson')
