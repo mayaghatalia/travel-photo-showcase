@@ -4,8 +4,8 @@ html, body {
     padding: 0;
     height: 100%;
     font-family: 'Helvetica Neue', sans-serif;
-    overflow: hidden;
     background: #000;
+    overflow: auto;
   }
   
   /* ======= ANIMATIONS ======= */

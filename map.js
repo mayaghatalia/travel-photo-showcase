@@ -1,4 +1,4 @@
-// List of countries to glow
+// List of countries to glow (names must match GeoJSON exactly)
 const glowingCountries = new Set([
   "Austria", "Bhutan", "Botswana", "Cambodia", "Canada",
   "Cayman Islands", "Chile", "China", "Czech Republic", "Denmark",
@@ -46,46 +46,35 @@ function getCountryStyle(feature) {
 }
 
 // Add GeoJSON country shapes
-L.geoJSON(countriesdata, {
+L.geoJSON(countriesData, {
   style: getCountryStyle,
   onEachFeature: function (feature, layer) {
     const name = feature.properties.name;
     const isGlowing = glowingCountries.has(name);
     const isVisited = visitedCountries[name];
 
-    // Helper to add glow class to SVG path
+    // Add glow class and accessibility attributes
     function addGlowClass() {
-      // For Leaflet 1.7+ use getElement(), for older use _path
       const path = layer.getElement ? layer.getElement() : layer._path;
       if (isGlowing && path) {
         path.classList.add('glow-country');
+        path.setAttribute('tabindex', '0');
+        path.setAttribute('aria-label', name);
       }
     }
-
-    // Add glow class immediately if possible
     addGlowClass();
-    // Also add on 'add' event as fallback
     layer.on('add', addGlowClass);
 
     // Visited countries: interactions and tooltip
     if (isVisited) {
-      // Make country focusable for keyboard navigation
-      layer.on('add', function () {
-        const path = layer.getElement ? layer.getElement() : layer._path;
-        if (path) path.setAttribute('tabindex', '0');
-      });
-
-      // Click and keyboard enter/space to open gallery
       layer.on('click', () => window.location.href = visitedCountries[name]);
       layer.on('keypress', function (e) {
         if (e.originalEvent.key === "Enter" || e.originalEvent.key === " ") {
           window.location.href = visitedCountries[name];
         }
       });
-
       layer.on('mouseover', () => layer.setStyle({ weight: 2.5 }));
       layer.on('mouseout', () => layer.setStyle({ weight: 1.5 }));
-
       layer.bindTooltip(name, {
         permanent: false,
         className: 'country-tooltip'

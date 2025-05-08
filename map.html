@@ -11,7 +11,7 @@
     <!-- Instruction Modal -->
     <div id="instruction-modal" class="modal-overlay" style="display: none;">
         <div class="modal-box">
-            <button class="close-btn" id="modal-close">✕</button>
+            <button class="close-btn" id="modal-close" aria-label="Close">&times;</button>
             <h2>Welcome!</h2>
             <p>
                 Click on the glowing green countries to view photo galleries.<br>
@@ -20,9 +20,7 @@
             </p>
         </div>
     </div>
-
     <div id="map" tabindex="0"></div>
-    
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="countriesData.js"></script>
     <script src="map.js"></script>

@@ -3,7 +3,7 @@ const countriesData = {
     "features": [
       {
         "type": "Feature",
-        "properties": { "name": "United States" },
+        "properties": { "name": "United States of America" },
         "geometry": {
           "type": "Polygon",
           "coordinates": [
@@ -123,3 +123,4 @@ const countriesData = {
       }
     ]
   };
+  
