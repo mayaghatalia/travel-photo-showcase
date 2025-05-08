@@ -81,7 +81,7 @@ function onEachCountry(feature, layer) {
 }
 
 // Load and add GeoJSON country shapes
-fetch('data/countries.geojson')
+fetch('countries.geojson')
   .then(res => res.json())
   .then(geojson => {
     L.geoJSON(geojson, {
