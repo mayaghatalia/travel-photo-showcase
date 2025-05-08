@@ -112,34 +112,32 @@
 <body>
 
   <div class="top-bar">
-    <button onclick="location.href='map.html'" class="back-button">← Back to Map</button>
+    <button onclick="location.href='../map.html'" class="back-button">← Back to Map</button>
   </div>
 
   <h1 class="gallery-title">Photos from India</h1>
 
   <div class="gallery-container">
     <button class="nav-button" onclick="previousImage()" aria-label="Previous photo">&#8592;</button>
-    
     <div class="image-wrapper">
       <div id="spinner" class="spinner"></div>
-      <img id="gallery-image" src="images/india/i1.jpg" alt="India Photo" onload="hideSpinner()">
+      <img id="gallery-image" src="../images/india/i1.jpg" alt="India Photo" onload="hideSpinner()">
     </div>
-
     <button class="nav-button" onclick="nextImage()" aria-label="Next photo">&#8594;</button>
   </div>
 
   <script>
-    const images = [
-      // Generate i1.jpg through i85.jpg
-      ...Array.from({ length: 85 }, (_, i) => `images/india/i${i + 1}.jpg`)
-    ];
+    // Generate image paths for i1.jpg to i85.jpg
+    const images = [];
+    for (let i = 1; i <= 85; i++) {
+      images.push(`../images/india/i${i}.jpg`);
+    }
 
     let currentImageIndex = 0;
 
     function showImage(index) {
       const img = document.getElementById('gallery-image');
       const spinner = document.getElementById('spinner');
-
       spinner.style.display = 'block';
       img.style.opacity = 0;
 
@@ -173,6 +171,7 @@
       if (e.key === 'ArrowLeft') previousImage();
     });
 
+    // Initialize gallery
     showImage(0);
   </script>
 

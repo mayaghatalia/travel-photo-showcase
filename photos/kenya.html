@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Photos from Kenya</title>
   <style>
-    /* Enhanced Gallery Styles */
     body {
       background-color: #111;
       color: #f0f0f0;
@@ -105,7 +104,6 @@
       100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
 
-    /* Keyboard navigation indicator */
     .nav-button:focus {
       outline: 2px solid #9eff9e;
     }
@@ -114,58 +112,35 @@
 <body>
 
   <div class="top-bar">
-    <button onclick="location.href='map.html'" class="back-button">← Back to Map</button>
+    <button onclick="location.href='../map.html'" class="back-button">← Back to Map</button>
   </div>
 
   <h1 class="gallery-title">Photos from Kenya</h1>
 
   <div class="gallery-container">
     <button class="nav-button" onclick="previousImage()" aria-label="Previous photo">&#8592;</button>
-    
     <div class="image-wrapper">
       <div id="spinner" class="spinner"></div>
-      <img id="gallery-image" src="images/kenya/k1.jpg" alt="Kenya Photo" onload="hideSpinner()">
+      <img id="gallery-image" src="../images/kenya/k1.jpg" alt="Kenya Photo" onload="hideSpinner()">
     </div>
-
     <button class="nav-button" onclick="nextImage()" aria-label="Next photo">&#8594;</button>
   </div>
 
   <script>
-    const images = [
-      "images/kenya/k1.jpg",
-      "images/kenya/k2.jpg",
-      "images/kenya/k3.jpg",
-      "images/kenya/k4.jpg",
-      "images/kenya/k5.jpg",
-      "images/kenya/k6.jpg",
-      "images/kenya/k7.jpg",
-      "images/kenya/k8.jpg",
-      "images/kenya/k9.jpg",
-      "images/kenya/k10.jpg",
-      "images/kenya/k11.jpg",
-      "images/kenya/k12.jpg",
-      "images/kenya/k13.jpg",
-      "images/kenya/k14.jpg",
-      "images/kenya/k15.jpg",
-      "images/kenya/k16.jpg",
-      "images/kenya/k17.jpg",
-      "images/kenya/k18.jpg",
-      "images/kenya/k19.jpg",
-      "images/kenya/k20.jpg"
-    ];
+    // Generate image paths for k1.jpg to k20.jpg
+    const images = [];
+    for (let i = 1; i <= 20; i++) {
+      images.push(`../images/kenya/k${i}.jpg`);
+    }
 
     let currentImageIndex = 0;
-    let imageLoaded = false;
 
     function showImage(index) {
       const img = document.getElementById('gallery-image');
       const spinner = document.getElementById('spinner');
-
-      imageLoaded = false;
       spinner.style.display = 'block';
       img.style.opacity = 0;
-      
-      // Preload image for smoother transitions
+
       const preload = new Image();
       preload.src = images[index];
       preload.onload = () => {
@@ -177,10 +152,8 @@
     function hideSpinner() {
       const img = document.getElementById('gallery-image');
       const spinner = document.getElementById('spinner');
-      
       spinner.style.display = 'none';
       img.style.opacity = 1;
-      imageLoaded = true;
     }
 
     function nextImage() {
@@ -193,13 +166,12 @@
       showImage(currentImageIndex);
     }
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') nextImage();
       if (e.key === 'ArrowLeft') previousImage();
     });
 
-    // Initial load
+    // Initialize gallery
     showImage(0);
   </script>
 
