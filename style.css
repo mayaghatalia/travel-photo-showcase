@@ -84,6 +84,7 @@ html, body {
       0 0 16px #77dd77;
     position: relative;
     z-index: 1;
+    text-decoration: none;
   }
   .explore-button:hover,
   .explore-button:focus {
