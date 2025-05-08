@@ -102,6 +102,8 @@ html, body {
     top: 0;
     left: 0;
   }
+
+
   
   /* Modal Overlay and Blur */
   .modal-overlay {
@@ -251,4 +253,5 @@ html, body {
       font-size: 1.2rem;
     }
   }
+  
   
