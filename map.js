@@ -17,6 +17,48 @@ const visitedCountries = {
   "India": "photos/india.html",
 };
 
+// ISO 2-letter country codes for the glowing countries
+const countryCodes = {
+  "Austria": "AT",
+  "Bhutan": "BT",
+  "Botswana": "BW",
+  "Cambodia": "KH",
+  "Canada": "CA",
+  "Cayman Islands": "KY",
+  "Chile": "CL",
+  "China": "CN",
+  "Czech Republic": "CZ",
+  "Denmark": "DK",
+  "Egypt": "EG",
+  "France": "FR",
+  "Germany": "DE",
+  "Greece": "GR",
+  "Hong Kong": "HK",
+  "Hungary": "HU",
+  "India": "IN",
+  "Indonesia": "ID",
+  "Italy": "IT",
+  "Japan": "JP",
+  "Kenya": "KE",
+  "Malaysia": "MY",
+  "Mexico": "MX",
+  "New Zealand": "NZ",
+  "Peru": "PE",
+  "Philippines": "PH",
+  "South Africa": "ZA",
+  "Spain": "ES",
+  "Sri Lanka": "LK",
+  "Taiwan": "TW",
+  "Tanzania": "TZ",
+  "Thailand": "TH",
+  "United Kingdom": "GB",
+  "United States of America": "US",
+  "Vietnam": "VN",
+  "Vatican City": "VA",
+  "Zambia": "ZM",
+  "Zimbabwe": "ZW"
+};
+
 // Initialize Leaflet map
 const map = L.map('map', {
   zoomSnap: 0.25,
@@ -40,8 +82,8 @@ function getCountryStyle(feature) {
   return {
     fillColor: isVisited ? "#77dd77" : (isGlowing ? "#2a2a2a" : "#111"),
     fillOpacity: isVisited ? 0.7 : (isGlowing ? 0.3 : 0.2),
-    color: isVisited ? "#9eff9e" : (isGlowing ? "#555" : "#333"),
-    weight: isVisited ? 1.5 : (isGlowing ? 1.2 : 0.8)
+    color: isVisited ? "#77dd77" : (isGlowing ? "#fff" : "#333"),
+    weight: isVisited ? 2 : (isGlowing ? 2 : 0.8)
   };
 }
 
@@ -51,6 +93,7 @@ function onEachCountry(feature, layer) {
   const isGlowing = glowingCountries.has(name);
   const isVisited = visitedCountries[name];
 
+  // Add glow class for styling
   function addGlowClass() {
     const path = layer.getElement ? layer.getElement() : layer._path;
     if (isGlowing && path) {
@@ -66,6 +109,32 @@ function onEachCountry(feature, layer) {
   addGlowClass();
   layer.on('add', addGlowClass);
 
+  // Show fun fact tooltip for ALL glowing countries
+  if (isGlowing) {
+    layer.on('mouseover', function(e) {
+      const code = countryCodes[name];
+      if (!code) return;
+      fetch(`https://vantilburger.com/CountryFactsAPI/fact/random.php?cc=${code}`)
+        .then(res => res.json())
+        .then(data => {
+          const fact = data.facts && data.facts[0] ? data.facts[0].fact : "No fact found.";
+          layer.bindTooltip(`<b>${name}</b><br>${fact}`, {
+            permanent: false,
+            className: 'country-fact-tooltip'
+          }).openTooltip();
+        })
+        .catch(() => {
+          layer.bindTooltip(`<b>${name}</b><br>No fact found.`, {
+            permanent: false,
+            className: 'country-fact-tooltip'
+          }).openTooltip();
+        });
+    });
+    layer.on('mouseout', function(e) {
+      layer.closeTooltip();
+    });
+  }
+
   // Add interactivity for visited countries
   if (isVisited) {
     layer.on('click', () => window.location.href = visitedCountries[name]);
@@ -75,14 +144,10 @@ function onEachCountry(feature, layer) {
       }
     });
     layer.on('mouseover', () => layer.setStyle({ weight: 2.5 }));
-    layer.on('mouseout', () => layer.setStyle({ weight: 1.5 }));
-    layer.bindTooltip(name, {
-      permanent: false,
-      className: 'country-tooltip'
-    });
+    layer.on('mouseout', () => layer.setStyle({ weight: 2 }));
+    // Don't bind a static tooltip here, since the fun fact tooltip will appear
   }
 }
-
 
 // Load and add GeoJSON country shapes
 fetch('countries.geojson')
