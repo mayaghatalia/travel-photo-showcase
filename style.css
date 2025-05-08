@@ -169,11 +169,11 @@ html, body {
     stroke-width: 3px !important;
   }
   
-  .glow-country-white {
+  .glow-country-blue {
     filter:
-      drop-shadow(0 0 5px #fff)
-      drop-shadow(0 0 10px #fff)
-      drop-shadow(0 0 15px #fff) !important;
+      drop-shadow(0 0 5px #7ab7f0)
+      drop-shadow(0 0 10px #7ab7f0)
+      drop-shadow(0 0 15px #7ab7f0) !important;
     stroke: #fff !important;
     stroke-width: 2px !important;
     transition: stroke 0.3s, filter 0.3s !important;
@@ -181,9 +181,9 @@ html, body {
   }
   .glow-country-white:hover {
     filter:
-      drop-shadow(0 0 8px #fff)
-      drop-shadow(0 0 16px #fff)
-      drop-shadow(0 0 24px #fff) !important;
+      drop-shadow(0 0 8px #7ab7f0)
+      drop-shadow(0 0 16px #7ab7f0)
+      drop-shadow(0 0 24px #7ab7f0) !important;
     stroke: #fff !important;
     stroke-width: 3px !important;
   }
