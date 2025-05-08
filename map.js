@@ -45,7 +45,42 @@ function getCountryStyle(feature) {
   };
 }
 
-// Add GeoJSON country shapes
+// Function to handle each country feature
+function onEachCountry(feature, layer) {
+  const name = feature.properties.name;
+  const isGlowing = glowingCountries.has(name);
+  const isVisited = visitedCountries[name];
+
+  // Add glow class and accessibility attributes
+  function addGlowClass() {
+    const path = layer.getElement ? layer.getElement() : layer._path;
+    if (isGlowing && path) {
+      path.classList.add('glow-country');
+      path.setAttribute('tabindex', '0');
+      path.setAttribute('aria-label', name);
+    }
+  }
+  addGlowClass();
+  layer.on('add', addGlowClass);
+
+  // Visited countries: interactions and tooltip
+  if (isVisited) {
+    layer.on('click', () => window.location.href = visitedCountries[name]);
+    layer.on('keypress', function (e) {
+      if (e.originalEvent.key === "Enter" || e.originalEvent.key === " ") {
+        window.location.href = visitedCountries[name];
+      }
+    });
+    layer.on('mouseover', () => layer.setStyle({ weight: 2.5 }));
+    layer.on('mouseout', () => layer.setStyle({ weight: 1.5 }));
+    layer.bindTooltip(name, {
+      permanent: false,
+      className: 'country-tooltip'
+    });
+  }
+}
+
+// Load and add GeoJSON country shapes
 fetch('data/countries.geojson')
   .then(res => res.json())
   .then(geojson => {
@@ -54,38 +89,3 @@ fetch('data/countries.geojson')
       onEachFeature: onEachCountry
     }).addTo(map);
   });
-
-  onEachFeature: function (feature, layer) {
-    const name = feature.properties.name;
-    const isGlowing = glowingCountries.has(name);
-    const isVisited = visitedCountries[name];
-
-    // Add glow class and accessibility attributes
-    function addGlowClass() {
-      const path = layer.getElement ? layer.getElement() : layer._path;
-      if (isGlowing && path) {
-        path.classList.add('glow-country');
-        path.setAttribute('tabindex', '0');
-        path.setAttribute('aria-label', name);
-      }
-    }
-    addGlowClass();
-    layer.on('add', addGlowClass);
-
-    // Visited countries: interactions and tooltip
-    if (isVisited) {
-      layer.on('click', () => window.location.href = visitedCountries[name]);
-      layer.on('keypress', function (e) {
-        if (e.originalEvent.key === "Enter" || e.originalEvent.key === " ") {
-          window.location.href = visitedCountries[name];
-        }
-      });
-      layer.on('mouseover', () => layer.setStyle({ weight: 2.5 }));
-      layer.on('mouseout', () => layer.setStyle({ weight: 1.5 }));
-      layer.bindTooltip(name, {
-        permanent: false,
-        className: 'country-tooltip'
-      });
-    }
-  }
-}).addTo(map);
