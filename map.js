@@ -46,8 +46,15 @@ function getCountryStyle(feature) {
 }
 
 // Add GeoJSON country shapes
-L.geoJSON(countriesData, {
-  style: getCountryStyle,
+fetch('data/countries.geojson')
+  .then(res => res.json())
+  .then(geojson => {
+    L.geoJSON(geojson, {
+      style: getCountryStyle,
+      onEachFeature: onEachCountry
+    }).addTo(map);
+  });
+
   onEachFeature: function (feature, layer) {
     const name = feature.properties.name;
     const isGlowing = glowingCountries.has(name);
