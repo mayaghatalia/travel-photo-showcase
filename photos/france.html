@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Photos from Paris</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       background-color: #111;
@@ -12,6 +13,7 @@
       margin: 0;
       padding: 0;
     }
+
     .top-bar {
       background: rgba(0,0,0,0.8);
       padding: 15px;
@@ -19,6 +21,7 @@
       top: 0;
       z-index: 100;
     }
+
     .back-button {
       background: #77dd77;
       border: none;
@@ -28,14 +31,18 @@
       font-weight: bold;
       transition: background 0.3s;
     }
+
     .back-button:hover {
       background: #9eff9e;
     }
+
     .gallery-title {
       text-align: center;
       margin: 20px 0;
       color: #77dd77;
+      font-size: 2rem;
     }
+
     .gallery-container {
       display: flex;
       align-items: center;
@@ -45,6 +52,7 @@
       max-width: 1200px;
       margin: 0 auto;
     }
+
     .image-wrapper {
       position: relative;
       width: 80%;
@@ -53,6 +61,7 @@
       border-radius: 8px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
+
     #gallery-image {
       width: 100%;
       height: auto;
@@ -61,6 +70,7 @@
       object-fit: contain;
       max-height: 70vh;
     }
+
     .nav-button {
       background: rgba(0,0,0,0.5);
       color: white;
@@ -72,9 +82,11 @@
       cursor: pointer;
       transition: background 0.3s;
     }
+
     .nav-button:hover {
       background: rgba(0,0,0,0.8);
     }
+
     .spinner {
       position: absolute;
       top: 50%;
@@ -88,20 +100,20 @@
       animation: spin 1s linear infinite;
       display: none;
     }
+
     @keyframes spin {
       0% { transform: translate(-50%, -50%) rotate(0deg); }
       100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-    .nav-button:focus {
-      outline: 2px solid #9eff9e;
     }
   </style>
 </head>
 <body>
   <div class="top-bar">
-    <button onclick="location.href='../map.html'" class="back-button">← Back to Map</button>
+    <button onclick="location.href='map.html'" class="back-button">← Back to Map</button>
   </div>
+
   <h1 class="gallery-title">Photos from Paris</h1>
+
   <div class="gallery-container">
     <button class="nav-button" onclick="previousImage()" aria-label="Previous photo">&#8592;</button>
     <div class="image-wrapper">
@@ -110,11 +122,11 @@
     </div>
     <button class="nav-button" onclick="nextImage()" aria-label="Next photo">&#8594;</button>
   </div>
+
   <script>
-    // Build image array for p1.jpg to p35.jpg
     const images = [];
     for (let i = 1; i <= 35; i++) {
-      images.push(`../images/france/p${i}.jpg`);
+      images.push(`images/france/p${i}.jpg`);
     }
 
     let currentImageIndex = 0;
@@ -155,8 +167,7 @@
       if (e.key === 'ArrowLeft') previousImage();
     });
 
-    // Initialize gallery
-    showImage(0);
+    showImage(currentImageIndex);
   </script>
 </body>
 </html>
