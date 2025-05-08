@@ -1,48 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Photos from Around the World</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-  <!-- Navbar -->
-  <nav class="navbar">
-    <ul>
-      <li><a href="#map-section">Map</a></li>
-      <li><a href="#gallery-section">Gallery</a></li>
-    </ul>
-  </nav>
-
-  <!-- Landing Section -->
-  <section class="landing">
-    <div class="landing-content">
-      <h1 class="hero-title">PHOTOS FROM AROUND THE WORLD</h1>
-      <p class="subtitle">A Visual Journey Across Continents</p>
+<body class="fade-in-page">
+  <div class="landing-page">
+    <h1 class="landing-title">
+      PHOTOS FROM<br>AROUND THE WORLD
+    </h1>
+    
+    <div class="button-container">
+      <a href="map.html" class="explore-button">Explore the Map</a>
     </div>
-  </section>
-
-  <!-- Map Section -->
-  <section id="map-section">
-    <h2>Map of Travels</h2>
-    <div id="map"></div>
-  </section>
-
-  <hr />
-
-  <!-- Gallery Section -->
-  <section id="gallery-section">
-    <h2>Photo Gallery</h2>
-    <div id="gallery" class="gallery"></div>
-  </section>
-
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="script.js"></script>
-  <script src="dots.js"></script>
-
+  </div>
 </body>
 </html>
