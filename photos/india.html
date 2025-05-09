@@ -18,6 +18,36 @@
     .nav-button:hover { background: rgba(0,0,0,0.8); }
     .spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 4px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 4px solid #77dd77; width: 40px; height: 40px; animation: spin 1s linear infinite; display: none; }
     @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+    /* Grid Gallery Styles */
+    .grid-toggle-bar { text-align: center; margin-bottom: 20px; }
+    .grid-gallery {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto 40px auto;
+    }
+    .grid-gallery.active { display: grid; }
+    .grid-gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .grid-gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px #77dd77;
+    }
+    @media (max-width: 600px) {
+      .gallery-container { flex-direction: column; gap: 10px; }
+      .image-wrapper { width: 100%; }
+      .grid-gallery { grid-template-columns: 1fr 1fr; }
+      .gallery-title { font-size: 2rem; }
+    }
   </style>
 </head>
 <body>
@@ -25,6 +55,10 @@
     <button onclick="location.href='../map.html'" class="back-button">← Back to Map</button>
   </div>
   <h1 class="gallery-title">Photos from India</h1>
+  <div class="grid-toggle-bar">
+    <button id="toggleGridBtn" class="back-button" style="margin-right:10px;">Show Grid Gallery</button>
+  </div>
+  <div id="gridGallery" class="grid-gallery"></div>
   <div class="gallery-container">
     <button class="nav-button" onclick="previousImage()">&#8592;</button>
     <div class="image-wrapper">
@@ -71,6 +105,46 @@
       if (e.key === 'ArrowRight') nextImage();
       if (e.key === 'ArrowLeft') previousImage();
     });
+
+    // Grid Gallery Logic
+    function buildGridGallery() {
+      const grid = document.getElementById('gridGallery');
+      grid.innerHTML = '';
+      images.forEach((src, idx) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `India Photo ${idx + 1}`;
+        img.onclick = () => {
+          currentImageIndex = idx;
+          showImage(currentImageIndex);
+          toggleGrid(false);
+        };
+        grid.appendChild(img);
+      });
+    }
+
+    function toggleGrid(show) {
+      const grid = document.getElementById('gridGallery');
+      const container = document.querySelector('.gallery-container');
+      const btn = document.getElementById('toggleGridBtn');
+      if (show) {
+        buildGridGallery();
+        grid.classList.add('active');
+        container.style.display = 'none';
+        btn.textContent = 'Show Slideshow';
+      } else {
+        grid.classList.remove('active');
+        container.style.display = 'flex';
+        btn.textContent = 'Show Grid Gallery';
+      }
+    }
+
+    document.getElementById('toggleGridBtn').onclick = function() {
+      const grid = document.getElementById('gridGallery');
+      toggleGrid(!grid.classList.contains('active'));
+    };
+
+    // Initialize gallery
     showImage(currentImageIndex);
   </script>
 </body>
