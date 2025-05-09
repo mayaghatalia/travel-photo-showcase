@@ -128,17 +128,14 @@
   </style>
 </head>
 <body>
-
   <div class="top-bar">
     <button onclick="location.href='../map.html'" class="back-button">← Back to Map</button>
   </div>
-
   <h1 class="gallery-title">Photos from Kenya</h1>
   <div class="grid-toggle-bar">
     <button id="toggleGridBtn" class="back-button" style="margin-right:10px;">Show Grid Gallery</button>
   </div>
   <div id="gridGallery" class="grid-gallery"></div>
-
   <div class="gallery-container">
     <button class="nav-button" onclick="previousImage()" aria-label="Previous photo">&#8592;</button>
     <div class="image-wrapper">
@@ -147,7 +144,6 @@
     </div>
     <button class="nav-button" onclick="nextImage()" aria-label="Next photo">&#8594;</button>
   </div>
-
   <script>
     // Use uppercase .JPG extension to match your actual files
     const images = [];
@@ -234,6 +230,5 @@
     // Initialize gallery
     showImage(0);
   </script>
-
 </body>
 </html>
